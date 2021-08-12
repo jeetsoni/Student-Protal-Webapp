@@ -1,0 +1,38 @@
+::ng-deep .mat-progress-bar-fill::after {
+  background-color: #ff6265;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+  background: #e4e8eb;
+}
+
+::ng-deep .mat-progress-bar {
+  border-radius: 2px;
+}
+mat-card {
+  margin-top: 10px;
+  /* border: 1px solid #c2185b; */
+}
+hr {
+  background-color: #ff6265;
+}
+.users-details h3,
+p {
+  margin: 0;
+}
+.avatar {
+  margin-top: 4px;
+  width: 41px;
+}
+.users-add img {
+  padding: 12px;
+}
+.title {
+  text-align: center;
+}
+.online {
+  width: 15px;
+  position: absolute;
+  top: 16px;
+  left: 14px;
+}

@@ -1,0 +1,237 @@
+<div>
+  <h1>Update Your Details</h1>
+  <form
+    #form="ngForm"
+    (ngSubmit)="onUpdate(form)"
+    *ngIf="data.type !== 'add-experience' && data.type !== 'add-education'"
+  >
+    <!-- name. status, sem, dep start -->
+    <mat-form-field appearance="outline" *ngIf="data.type === 'name'">
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        placeholder="Name"
+        name="name"
+        [ngModel]="data.Details.name"
+        required
+      />
+      <mat-error *ngIf="form.invalid">Name is required</mat-error>
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline" *ngIf="data.type === 'name'">
+      <mat-label>Status</mat-label>
+      <input
+        matInput
+        placeholder="Name"
+        name="status"
+        [ngModel]="data.Details.status"
+      />
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+    <br />
+
+    <mat-form-field appearance="fill" *ngIf="data.type === 'name'">
+      <mat-label>Semester</mat-label>
+      <mat-select name="semester" [ngModel]="data.Details.semester" required>
+        <mat-option [value]="1">1</mat-option>
+        <mat-option [value]="2">2</mat-option>
+        <mat-option [value]="3">3</mat-option>
+        <mat-option [value]="4">4</mat-option>
+        <mat-option [value]="5">5</mat-option>
+        <mat-option [value]="6">6</mat-option>
+        <mat-option [value]="7">7</mat-option>
+        <mat-option [value]="8">8</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.invalid">Semester is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" *ngIf="data.type === 'name'">
+      <mat-label>Department</mat-label>
+      <mat-select
+        name="department"
+        [ngModel]="data.Details.department"
+        required
+      >
+        <mat-option value="IT">IT</mat-option>
+        <mat-option value="CE">CE</mat-option>
+        <mat-option value="MECH">MECH</mat-option>
+        <mat-option value="CIVIL">CIVIL</mat-option>
+        <mat-option value="EE">EE</mat-option>
+        <mat-option value="ICT">ICT</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.invalid">Department is required</mat-error>
+    </mat-form-field>
+    <br />
+    <!-- name. status, sem, dep start end-->
+    <!-- about start -->
+    <mat-form-field appearance="outline" *ngIf="data.type === 'about'">
+      <mat-label>About</mat-label>
+      <input
+        matInput
+        placeholder="About"
+        name="about"
+        [ngModel]="data.Details.about"
+        required
+      />
+      <mat-error *ngIf="form.invalid">About is required</mat-error>
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+    <!-- about end -->
+    <br />
+    <button
+      style="background-color: #ff6265"
+      mat-dialog-close
+      mat-raised-button
+      color="primary"
+      type="submit"
+      *ngIf="data.type !== 'add-experience'"
+    >
+      update
+    </button>
+  </form>
+
+  <form #form1="ngForm" *ngIf="data.type === 'add-experience'">
+    <!-- org, pos,date, address start -->
+
+    <mat-form-field appearance="outline">
+      <mat-label>Organization</mat-label>
+      <input
+        matInput
+        placeholder="Organization"
+        name="orgname"
+        [ngModel]="data.inp1"
+        required
+      />
+      <mat-error *ngIf="form1.invalid">Organization is required</mat-error>
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Position</mat-label>
+      <input
+        matInput
+        placeholder="Position"
+        name="position"
+        [ngModel]="data.inp2"
+        required
+      />
+      <mat-error *ngIf="form1.invalid">Position is required</mat-error>
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input
+          name="start"
+          matStartDate
+          placeholder="Start date"
+          ngModel
+          required
+        />
+        <input name="end" matEndDate placeholder="End date" ngModel required />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Address</mat-label>
+      <input
+        matInput
+        placeholder="Address"
+        name="address"
+        [ngModel]="data.inp4"
+        required
+      />
+      <mat-error *ngIf="form1.invalid">Address is required</mat-error>
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+    <br />
+    <button
+      style="background-color: #ff6265"
+      mat-dialog-close
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="
+        data.method !== 'edit'
+          ? onAddExperience(form1)
+          : onUpdateExperience(form1)
+      "
+    >
+      update
+    </button>
+    <!-- org, pos,date, address end -->
+  </form>
+
+  <!-- inst, degree, date, address start -->
+  <form #form2="ngForm" *ngIf="data.type === 'add-education'">
+    <mat-form-field appearance="outline">
+      <mat-label>Institute</mat-label>
+      <input
+        matInput
+        placeholder="Institute"
+        name="instname"
+        [ngModel]="data.inp1"
+        required
+      />
+      <mat-error *ngIf="form2.invalid">Institute is required</mat-error>
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Degree</mat-label>
+      <input
+        matInput
+        placeholder="Degree"
+        name="degree"
+        [ngModel]="data.inp2"
+        required
+      />
+      <mat-error *ngIf="form2.invalid">Degree is required</mat-error>
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input
+          name="start"
+          matStartDate
+          placeholder="Start date"
+          ngModel
+          required
+        />
+        <input name="end" matEndDate placeholder="End date" ngModel required />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Address</mat-label>
+      <input
+        matInput
+        placeholder="Address"
+        name="address"
+        [ngModel]="data.inp4"
+        required
+      />
+      <mat-error *ngIf="form2.invalid">Address is required</mat-error>
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    </mat-form-field>
+    <br />
+    <button
+      style="background-color: #ff6265"
+      mat-dialog-close
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="
+        data.method !== 'edit'
+          ? onAddEducation(form2)
+          : onUpdateEducation(form2)
+      "
+    >
+      update
+    </button>
+  </form>
+  <!-- inst, degree, date, address end -->
+</div>

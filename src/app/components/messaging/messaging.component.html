@@ -1,0 +1,60 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="main">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-card>
+          <h1>Join The Room</h1>
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="user" id="username" placeholder="Enter username" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Rooms</mat-label>
+            <mat-select name="department" [(ngModel)]="room">
+              <mat-option value="IT">IT</mat-option>
+              <mat-option value="CE">CE</mat-option>
+              <mat-option value="MECH">MECH</mat-option>
+              <mat-option value="CIVIL">CIVIL</mat-option>
+              <mat-option value="EE">EE</mat-option>
+              <mat-option value="ICT">ICT</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button (click)="join()" mat-raised-button color="primary" type="submit" style="background-color: #ff6265">
+            Join
+          </button>
+          <button (click)="leave()" mat-raised-button color="primary" type="submit" style="background-color: #ff6265">
+            Leave
+          </button>
+        </mat-card>
+
+      </div>
+      <div class="col-md-8">
+        <mat-card>
+          <div class="row">
+            <div class="well" style="height:73vh; padding:15px;">
+              <div class="msg" *ngFor="let item of messageArray">
+                <span><strong class="username">{{item.user}} </strong> {{ item.message}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-10">
+              <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput [(ngModel)]="messageText" />
+              </mat-form-field>
+            </div>
+            <div class="col-sm-2">
+              <button (click)="sendMessage()" mat-raised-button color="primary" type="submit"
+                style="background-color: #ff6265">
+                Send
+              </button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

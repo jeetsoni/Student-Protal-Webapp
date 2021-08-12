@@ -1,0 +1,22 @@
+<mat-card>
+  <p class="title">Who is online</p>
+  <hr />
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+  <div *ngIf="!isLoading">
+    <mat-card *ngFor="let user of users" class="users-card">
+      <div class="row">
+        <div class="col-md-3">
+          <img class="rounded-circle avatar"
+            src="https://student-portal-serve.herokuapp.com/users/{{ user._id }}/avatar" alt="" width="100%" />
+        </div>
+        <div class="col-md-9 users-details">
+          <h3>{{ user.name }}</h3>
+          <p>{{ user.department }}</p>
+        </div>
+        <!-- <div class="col-md-3 users-add">
+        </div> -->
+        <img class="online" src="../../../../assets/online.png" alt="" />
+      </div>
+    </mat-card>
+  </div>
+</mat-card>

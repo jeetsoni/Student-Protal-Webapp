@@ -1,0 +1,46 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="col-md-6 offset-3">
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <div *ngIf="!isLoading">
+      <mat-card class="post-card" *ngFor="let post of posts">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image">
+            <a [routerLink]="['/profile', post.user._id]">
+              <img class="rounded-circle avatar"
+                src="https://student-portal-serve.herokuapp.com/users/{{ post.user._id }}/avatar" alt="" width="100%" />
+            </a>
+          </div>
+          <mat-card-title><a [routerLink]="['/profile', post.user._id]">{{
+              post.user.name
+              }}</a></mat-card-title>
+          <mat-card-subtitle>{{ post.user.status }}</mat-card-subtitle>
+        </mat-card-header>
+        <!-- <img
+      *ngIf="post.body_photo"
+      mat-card-image
+      src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+      alt="Photo of a Shiba Inu"
+    /> -->
+        <mat-card-content>
+          <p>
+            {{ post.body }}
+          </p>
+        </mat-card-content>
+        <hr />
+        <mat-card-actions class="post-button">
+          <button mat-button>
+            <mat-icon>thumb_up</mat-icon> Like
+          </button>
+          <button mat-button>
+            <mat-icon> comment</mat-icon> Comment
+          </button>
+          <button mat-button>
+            <mat-icon>share</mat-icon>Share
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

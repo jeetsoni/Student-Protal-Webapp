@@ -1,0 +1,18 @@
+.home-content {
+  margin-top: 10px;
+}
+mat-card {
+  margin-top: 10px;
+  /* border: 1px solid #c2185b; */
+}
+.home-center {
+  overflow: scroll;
+  height: 110vh;
+}
+.home-center::-webkit-scrollbar {
+  display: none;
+}
+
+hr {
+  background-color: #c2185b;
+}

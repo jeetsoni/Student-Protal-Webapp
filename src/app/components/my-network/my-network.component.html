@@ -1,0 +1,54 @@
+<app-header></app-header>
+
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Followers">
+    <div class="container">
+      <div class="row">
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+        <div class="col-md-3" *ngFor="let follow of Followers">
+
+          <mat-card *ngIf="!isLoading">
+            <a [routerLink]="['/profile', follow._id]">
+              <div class="banner">
+                <img type="button" mat-stroked-button class="rounded-circle profile-pic"
+                  src="https://student-portal-serve.herokuapp.com/users/{{ follow._id }}/avatar" width="30%" />
+
+              </div>
+              <h3>{{follow.name}}</h3>
+            </a>
+            <p class="status">{{follow.status}}</p>
+            <button (click)="unfollow(follow._id,loggedInUserId,'unfollow')" mat-stroked-button class="unfollow-btn">
+              <mat-icon>remove_circle</mat-icon> <span class="btn-name"> Remove</span>
+            </button>
+          </mat-card>
+        </div>
+
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Following">
+    <div class="container">
+      <div class="row">
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+        <div class="col-md-3" *ngFor="let user of Followings">
+
+          <mat-card *ngIf="!isLoading">
+            <a [routerLink]="['/profile', user._id]">
+              <div class="banner">
+                <img type="button" mat-stroked-button class="rounded-circle profile-pic"
+                  src="https://student-portal-serve.herokuapp.com/users/{{ user._id }}/avatar" width="30%" />
+              </div>
+              <h3>{{user.name}}</h3>
+            </a>
+            <p class="status">{{user.status}}</p>
+            <button (click)="unfollow(loggedInUserId, user._id, 'unfollow')" mat-stroked-button class="unfollow-btn">
+              <mat-icon>remove_circle</mat-icon> <span class="btn-name"> Unfollow</span>
+            </button>
+          </mat-card>
+
+        </div>
+
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

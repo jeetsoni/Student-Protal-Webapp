@@ -1,0 +1,46 @@
+<mat-toolbar color="primary">
+  <div class="container">
+    <span class="logo"><a [routerLink]="['/home']"><img src="../../../../assets/KPO_W.png" alt="" width="100"><span
+          class="inst_name">Marwadi
+          University</span></a></span>
+    <span class="example-spacer"></span>
+
+    <button class="drop-down" mat-button [matMenuTriggerFor]="menu">
+      <img *ngIf="avatar" src="https://student-portal-serve.herokuapp.com/users/{{ userId }}/avatar" alt="" />
+      <img *ngIf="!avatar"
+        src="https://www.kindpng.com/picc/m/22-223965_no-profile-picture-icon-circle-member-icon-png.png" alt="" />
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['/profile', userId]">
+        View Profile
+      </button>
+      <button mat-menu-item (click)="onLogout()">Logout</button>
+    </mat-menu>
+
+    <button routerLink="/message" mat-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>event_available</mat-icon>
+      <br />
+      <span>Messages</span>
+    </button>
+
+    <button routerLink="/posts" mat-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon> message</mat-icon>
+      <br />
+      <span>Posts</span>
+    </button>
+
+    <button routerLink="/mynetwork" mat-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>group</mat-icon>
+      <br />
+      <span>My Network</span>
+    </button>
+
+    <button routerLink="/home" mat-button class="example-icon favorite-icon"
+      aria-label="Example icon-button with heart icon">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+      <br />
+      <span>Home</span>
+    </button>
+  </div>
+</mat-toolbar>

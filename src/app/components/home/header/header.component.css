@@ -1,0 +1,50 @@
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.mat-toolbar.mat-primary {
+  background: #ff6265;
+  color: #fff;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+button {
+  /* padding: 0px;
+  margin: 0 20px; */
+  float: right;
+}
+.logo {
+  position: absolute;
+  top: 14px;
+}
+mat-icon {
+  position: relative;
+  top: 8px;
+}
+
+.drop-down {
+  margin-top: 17px;
+}
+.drop-down mat-icon {
+  margin-bottom: 12px;
+  margin-left: 10px;
+}
+.drop-down img {
+  width: 40px;
+  border-radius: 30px;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+.logo img {
+  position: absolute;
+  top: -30px;
+}
+.inst_name {
+  position: relative;
+  left: 104px;
+  top: 5px;
+}

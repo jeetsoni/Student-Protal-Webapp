@@ -1,0 +1,53 @@
+mat-form-field {
+  margin-right: 10px;
+}
+::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
+  color: #ff6265 !important;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #ff6265 !important;
+}
+mat-card {
+  margin-top: 10px;
+  /* border: 1px solid #c2185b; */
+}
+.home-center {
+  overflow: scroll;
+  height: 110vh;
+}
+.home-center::-webkit-scrollbar {
+  display: none;
+}
+.create-post {
+  width: 100%;
+}
+.create-post-button button {
+  padding: 0 30px;
+}
+.post-button button {
+  padding: 0 47px;
+}
+.post-btn {
+  margin-left: 68px;
+  background-color: #ff6265;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+mat-progress-bar {
+  margin-top: 20px;
+}
+.avatar {
+  border: 1px solid #ff6265;
+}
+input[type="file"] {
+  visibility: hidden;
+  width: 0;
+}
+.img-preview {
+  margin-bottom: 20px;
+}

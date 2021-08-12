@@ -1,0 +1,259 @@
+<app-header></app-header>
+<div class="container peofile">
+  <div class="row">
+    <div class="col-md-8">
+      <mat-card>
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+        <div *ngIf="!isLoading">
+          <div class="banner">
+            <div class="col-md-4 offset-4 banner-image">
+              <img *ngIf="Details.avatar && loggedInUser" (click)="filePicker.click()" type="button" mat-stroked-button
+                class="rounded-circle" [src]="getProfilePhoto()" width="100%" />
+              <img *ngIf="Details.avatar && !loggedInUser" mat-stroked-button class="rounded-circle"
+                [src]="getProfilePhoto()" width="100%" />
+              <img *ngIf="!Details.avatar" (click)="filePicker.click()" type="button" mat-stroked-button
+                class="rounded-circle"
+                src="https://www.kindpng.com/picc/m/22-223965_no-profile-picture-icon-circle-member-icon-png.png"
+                width="100%" />
+              <input #filePicker type="file" (change)="onImagePicked($event.target.files)" />
+            </div>
+          </div>
+          <button class="profile-edit-button" mat-icon-button color="primary"
+            aria-label="Example icon button with a menu icon" (click)="openDialog('name')" *ngIf="loggedInUser">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <div class="col-md-12 info">
+            <h1>{{ Details.name }}</h1>
+            <p *ngIf="Details.status">{{ Details.status }}</p>
+            <p *ngIf="!Details.status">Hey, I am using this portal</p>
+          </div>
+          <mat-card>
+            <div class="row info-1">
+              <div class="col-md-4">
+                Connections <br />
+                {{ Details.connections }}
+              </div>
+              <div class="col-md-4">
+                Semester <br />
+                {{ Details.semester }}
+              </div>
+              <div class="col-md-4">
+                Department <br />
+                {{ Details.department }}
+              </div>
+            </div>
+          </mat-card>
+          <div class="row con-msg-btn">
+            <div class="col-md-6 connect-btn">
+              <button (click)="followUser( loggedInUserId,Details._id,'follow')" *ngIf="!follow && !loggedInUser"
+                mat-raised-button style="background-color: #ff6265">
+                Follow <mat-icon style="color: white">person_add</mat-icon>
+              </button>
+              <button (click)="followUser( loggedInUserId,Details._id,'unfollow')" *ngIf="follow && !loggedInUser"
+                mat-raised-button style="background-color: #ff6265">
+                Unfollow <mat-icon style="color: white">remove_circle</mat-icon>
+              </button>
+            </div>
+            <div class="col-md-6">
+              <button mat-stroked-button *ngIf="!loggedInUser">
+                Message <mat-icon> message</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+      <mat-card class="about-card">
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+        <div *ngIf="!isLoading">
+          <button class="edit-button" mat-icon-button color="primary" aria-label="Example icon button with a menu icon"
+            (click)="openDialog('about')" *ngIf="loggedInUser">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <h1>About</h1>
+          <p *ngIf="Details.about">
+            {{ Details.about }}
+          </p>
+          <mat-card *ngIf="!Details.about && loggedInUser" class="default-card">
+            <p>Write Something about yourself!</p>
+          </mat-card>
+        </div>
+      </mat-card>
+      <mat-card class="features-section">
+        <button class="edit-button" mat-icon-button color="primary" aria-label="Example icon button with a menu icon"
+          *ngIf="loggedInUser">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <h1>Features</h1>
+        <mat-card>
+          <p *ngIf="loggedInUser">
+            Showcase your work by featuring your best posts, documents, media,
+            and websites.
+          </p>
+        </mat-card>
+      </mat-card>
+      <mat-card class="experience-section">
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+        <div *ngIf="!isLoading">
+          <button class="edit-button" mat-icon-button color="primary" aria-label="Example icon button with a menu icon"
+            (click)="openDialog('add-experience')" *ngIf="loggedInUser">
+            <mat-icon>add</mat-icon>
+          </button>
+          <h1>Experience</h1>
+          <mat-card *ngFor="let expe of Details.experience">
+            <div class="row">
+              <div class="col-md-2 company-logo">
+                <img class="rounded"
+                  src="data:image/jpeg;base64,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"
+                  alt="" width="100%" />
+              </div>
+              <div class="col-md-10 company-details">
+                <button *ngIf="loggedInUser" class="experience-edit-button" mat-icon-button color="primary"
+                  aria-label="Example icon button with a menu icon" (click)="
+                    openDialog(
+                      'add-experience',
+                      expe._id,
+                      expe.orgname,
+                      expe.position,
+                      expe.date,
+                      expe.address,
+                      'edit'
+                    )
+                  ">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <h2>{{ expe.orgname }}</h2>
+                <h4>{{ expe.position }}</h4>
+                <h5>{{ expe.date }}</h5>
+                <h5>{{ expe.address }}</h5>
+              </div>
+            </div>
+          </mat-card>
+          <mat-card *ngIf="!Details.experience[0] && loggedInUser">
+            <p>Add your past interships or experience hear!</p>
+          </mat-card>
+          <hr />
+          <button *ngIf="loggedInUser" class="edit-button" mat-icon-button color="primary"
+            aria-label="Example icon button with a vertical three dot icon" (click)="openDialog('add-education')">
+            <mat-icon>add</mat-icon>
+          </button>
+          <h1>Education</h1>
+          <mat-card *ngFor="let edu of Details.education">
+            <div class="row">
+              <div class="col-md-2 company-logo">
+                <img class="rounded"
+                  src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhUTERIVFRUWFRYVFRcXGBcVFxYVFRcXFhUVFhkYHSggGB4lHRUXITEhJSkrLi4uFx8zODUsNygtLisBCgoKDg0OGhAQGysmICUtLS0tLy0tLS0wLS0tLS0tLS0rKy0tLS0uLS0tLS0tLS0rLTUtLS0tLS0tLS0tLS0tLf/AABEIAOEA4QMBEQACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQYCAwcEAQj/xABIEAABAgIFBgkJBgQGAwAAAAABAAIDEQQFBiExEkFRYXGxEyIycnOBkaGyByM0QlKCs8HwJDNTYpLRQ4PC4WOTw9LT8RQVov/EABoBAQACAwEAAAAAAAAAAAAAAAABBQIDBAb/xAA2EQEAAgEBBAcGBQQDAQAAAAAAAQIDEQQFITESMkFRcYGxIjORocHRFDRh4fAjQlKCExVyJP/aAAwDAQACEQMRAD8A7igICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIPhKDW6ksGL2jrCDWawgjGLD/AFt/dBia0gDGPC/W390D/wBnA/Ghfrb+6DJtYwThFhn32/ugzbSoZwe0+8EG0OBwKD6gICAgICAgICAgICAgINNLpTITC+I7JaJTJzTIAw1kIIOPbOiDkue/mtI8clOg8Ea3bfUgOPOcB3AFNB4I9uI55MOG3blOPbMBNEPHEtZS3T84G7Gt3kFToPG6vKU7GkRDjgckd0k0Gl9NiuxiRHay5xvPWg0PM8bzPOgZIHXL+yDIDVr+aDIt6kH1rQbtO5B9ZC0D60oM2ME/nJAaZYfUkHphUl4M2vcNhddskUHqh1nHE5Rn55cYnemg9LbQUpv8WeE5tb+yaD1wLVR/WDD1Ebio0HsgWtN2VB7HaNRCaJeyFamCeU17doBHcU0EnQqxhRfu3TkJm4jeFA9SAgICAgICCDtr6FF/l/FYpgcxlPDNNShkBvN2/eg2iixCJhjs9+SZYyzjQpRMxHN8MOWLoYOgxIYPZlTWUUtPKJabbVhrzvHxYjgx/FYOqIfCwhZRhvPY023js1f7vlP2feGhAfeE81hPiLVl+Hu023tgjlrPl99AR4XtRP0NH9ZWX4a3fDVO+cfZWfl9z/yoXsxDfPlNH9JWX4We9hO+o7KT8QUuGPUf+tv+xPwv6sZ31P8Ah8/2DTWfhv8A8xuz8NT+FjvR/wB1b/CPj+z6Kcz8N/8AmD/jT8LHf8kf91b/AAj4/sy/9gz8N/8AmD/jUfhf1TG+p/w+f7MhT4fsP/W0/wBKj8LPezjfUdtPn+wKZB0RB7rT35QUfhbd8M43zj7aT8mcOmQvaf1sHyeVE7Nf9Gdd8YJ5xMfD7tvDwj/Fb+mJ/sWM7Pk7m2N6bNPbPwn7Noc0ylEhn+Y0byCsZxXjslujbtnn++Pi2No7/VBdPRxh2iaw0mHRXJS3KYGNMrwR3fRnvUMn1wlm69yCy2P5cTmt3lRKVpUAgICAgICCEtmPscX3PiMUwOYqUNVZ0uI3g2se5oMOZDSWzPCRBMyxwHYurBEdHXRSbxyXjL0YmdNI7fFGOcXGbiSdJvPeuiFXPHmyapYTDYFkxZBGLY0qWLJECAgICAgICAgIEkNHqo1MihwAiPAmLsoyx0TksLUrMcm/FmyVtGlp598p2kCTnXZzvP8AdVj2Sw2LPGic1u8qJStagEBAQEBAQQltD9ji/wAv4jFMDmDm9f1m7VKHkrkSdD6IfEiLrwdVRby995R9XhC3q6WYRi30WC6I4MY0uccGtEyVPSiOMorS1p6NY1lvptCiQXZEVjmO0HPrBwI1hK2i0awjLivjno3jSWppWTVLYFKBECAgICAg+tBJAAmTcALyToCJ58IemnVbGg5PCw3MyrxMY6turFY1vW3KW3LgyYtOnWY1eVZNIgzg8pvOG9RPJlTrR4wstJMnHnHf/wBKqe3WCxhm6JzW7yolK1qAQEBAQEBBCWz9Di/y/iMUwOZkYXKUI+uuVD6L/UiLrwdVRbx995R9XiBW5XyzCli6V5O6fRBDENsmRzPLyrnRLzLJdnEpcXNozrkz1vrr2LvduTDFejHC3b+q21hV8KO3IisD268x0g4g6wtFbTWdYWOXFTLXo3jWFBr2wsSHN9GJiN9g8sbMzu47V2Y9pieFlFtO6rV44uMd3b+6plpBIIIIuINxB0EZl0xKomJidJfVLEQEBAQTVSWZj0mRAyIftuFx5oxdu1rTkz1pw7Xbs2wZc/GOEd8/TvdCqSzsCjCbG5T873Xu6vZGoLiyZbX5vRbNsWLBxrHHvnn+zdXlMo8OGf8AyS3JPqkZRdqDcSsaVtM+yz2nLhpT+rpp3d7kEYtLnZAIblHJBvIbO4HXJWkcuLx9tNZ6PJgpYs4PKbzhvUTyZU60eMLJGdx3c5313qqe3T9iBxol3qt3nBRKVtUAgICAgICCEtmfscX3PiMUwOZ5V4loUoR9e8qH0X+pEXXg6qi3j77yj6vA0rc4GYUsZZtKMZW2z9t40GTY040PWfONGpx5Ww9q032eLcY4S79n3lkx8L8Y+f7+bolVVvBpLcqC8O0jBzdTmm8LjtS1Z0leYdox5o1pLz13Z6BSRx2yfme25w2+0NRWWPLanJr2jY8WePajj3xzc+ryy8ejTdLhIfttGA/M3FveNa7seet/F53atgy4OPOO+PrCEW5wiD2VZVkWkOyYLC7ScGt5xwG9YXvWkay3YNnyZp0pGvp8V+qKxcKFJ8aUV+gjiNOoettPYFxZNotbhHB6DZd148ftZPan5fD7rLGitY0uc4NaBeSQAAtERM8IWVrRWNZnSFLr23IE2UUTP4jhd7rTjtPYV1Y9m7bKXad7xHs4fj9oUmk0h8RxfEcXOOJJmf7DUuyKxEaQpL5LXt0rTrLUpYCDZA5TecN4UTyZ060eMLDHHGdL2jp0/wBgqp7ZZbGjjRNgHVM/uolK0qAQEBAQEBBC2x9Di+58RimBzK7bf9BShHV8eND6L/UiLrwdVRbx995R9Ue0rc4GwFESzYJmQz3BSx01TNaWcpNGGVFhnJkCXN4zRqcRyeu5YUy1tyluzbJlxRraOH6PBRaS+G4PhuLXDBzTIrbMRPCXNW1qT0qzpK91BbzBlLEv8Rou99ow2jsC5MmzdtFxs29f7c3x+8LvAjsiNDmODmnAggg9a5ZiYniua2raNYnWFcr2xkGNN8GUJ+Nw4jjrbm2jsK349otXhPGFbtW68eX2qezPy84RlTWEM8qlOuB5DDjznaNQv1rZfauyrl2fdHHXNPlH3XWjUZkNoZDaGtGAAkFyTMzOsrulK0r0axpCBr218GBNrPOxMJA8Vp/M75DuW7HgtbjPCHBtW8seH2a8Z+XnLn9bVxGpLpxXzGZouY3YPmZld1MdadV5/aNqy551vPl2fzxaaBV8WO7JhMLznlgNpwHWptetebDFhyZZ6NI1ZVpV0SjxODigB0g64zBBzg9RHUlLxeNYTnwXw36F+byLJpEGcDlN5w3hRPJnTrR4ws8U8d0r7z85Kre2T1i5ZUTY3eVjKVrUAgICAgICCEtn6HF9z4jFMDmYGbWpQja+5ULoh8SIuvB1VHvH33lH1RwK3K9saUHoovLZzm7wk8pK9aPGHfZKsetcOrQAR4wFwEWIANQe5WlOrHg8fmj+pbxn1aQwyypGU5TkZT0TwnqWesNUxOmqQqiuI1GdOC+WlpvY7a35i9YXx1vzbMG05cE6458ux0KobYwY8mxPNRNBPFcfyu+R71xZNntXjHGF/su8seX2bcJ+XlKTrivYFGE4juNmYL3HqzbTcsKY7X5OnaNrxYI9uePd2ufV5auPSJtB4KH7LTeR+Z2fYJDau3HgrTnxl57at45c3CPZj9PrKChwybmgkynIAm4YmQW+Z73BFZnhEMURzdZsa0ChwZDFpJ1nKN6rM3vJet3fH/zU8FN8onpY6JnieuvZep5qXe/5n/WPWVYXQrBBnA5TecN6ieTOnWjxhZaQJPJ1mff/AGVW9ssNjj5yLzW7yFjKVqUAgICAgICCFtn6HF9z4jFMDmLTeN3apQjbQcqH0Q+JEXXg6qj3j77yj6o4FbnAzCIeiictnObvCTylNetHjD9AKsescMrU/aI3TRfG5WdOrHg8hn95fxn1dOsRR2Pq+E17Wua7hZggEHzr8QuLNM/8kyv9gpW2y1i0axx9ZRFe2DxfRDLPwbjd7jjuPatuPaeyzj2ndP8Adh+E/SVKjwHQ3FkRpa4YtcJFdkWiY1hSXpak9G0aT+r445z9aFLGe+VkqKx0aPJ0WcKHrHHcNTThtPYVz5NorXhHFZbLuzJl9q/sx8/54r/VVUQaO3JhMA0uxc7nHPswXFe9rzrL0GDZseCulI+/xchpolEiAe2/xFWderHg8fk95bxn1dUsd6HB5p8RVdm95L1e7/y1PBTPKJ6WOiZ4nrr2Xqeak3v+Z/1j1lWF0KwQZwOU3nDeonkzp1o8YWaO/jOxuJ34diq3tk9YsHKiT9lu8rGUrYoBAQEBAQEEJbT0OL/L+IxTA5pn6s25ShFWhPGhdEPiRF14Oqo94++8o+qMaVtcDYCpQ9FEPHZzm7wonlLKnWjxh+gVWvVuGVv6RG6aL43Kzp1Y8Hks3vLeM+rqdgPQIP8AN+LEXFn68/zsX+7fy1fP1lNupbA8Qy4B5GUGk3kC4kaVq0nTV2TevS6OvF5q1qiDSW5MVgOh2Dm812I3LKl7UnWGrPs2PPXS8a/zveCpbKUejnKAMR87nPkcnRkjAHXis8me13Ps278OGdY4z3ymKRSmQ5Zbg3KcGtmcXOMgBpN61REzydlr1pp0p01blDNxOnfexOkf4iravVjweJye8t4z6up2O9Dg80+Iquze8l6rd/5angpnlE9LHRM8T117L1PNSb3/ADP+sesqwuhWCDZA5TecN4UTyZ060eMLM9vGdtI7zeqt7ZPWM5UTmt3lYyla1AICAgICAghLZ+hxfc+IxTA5mG/XzUoRVozx4fRD4kRdeDqqPePvvKPqjGlbXA2AqRvoh47Oe3eFE8pTTrR4x6v0Gq16twqtz9ojdNF8blZ16seDyWb3lvGfV1Tyf+gQdsX4sRcWfrz/ADsX+7vy1fP1lWvKc6UeCQZEQyQRcQcrELfsvVlXb395TTun1Y1BbmJDkykgxGYZY5Y2+3v2qcmzRPGrHZt6Wp7OXjHf2/v/ADmlq6t3DaMmjDLcRy3Ahreq4uPYtePZpnrOnad7UrGmLjPf2KnQqZEjUuA+K8vdw0K85vONuAwA1BdNqxWkxHcp8eW+TaKWvOs9KvrDr6rHsHE6d97E6R/iKtq9WPB4nL7y3jPq6nY70ODzT4iq7N7yXqt3/lqeCmeUT0sdEzxPXXsvU81Jvf8AM/6x6yrC6FYINkDlN5w3hRPJnTrR4ws1JbMu5x7b1VPbJ+xtz4gPst7JlRKVqUAgICAgICCFtkPscX3PiMUwOZtw+tKlCItHy4XQj4kRdWDqqPePvvKPqiwtzgbGlSPRRDx2c9viCieUpp1o8Y9X6EVa9W4TXHpEfpovjcrKvVjweTze8t4z6uq+T70CDti/GiLjz9ef52L/AHd+Wr5+sqz5UfvoPRu8S37LylXb369fCVNC6lPLNpRikKk9IgdNC+I1Y5OpPg27P76n/qvq7Oqp7NxOnfexOkf4iranVjweIy+8t4z6up2P9Dg80+Iquze8l6vd/wCWp4KZ5RPSx0TPE9dey9TzUm9/zP8ArHrKsLoVgg2QOU3nDeFE8mdOtHjCzxxxjfnO9VT2yesaONE5rd5/ZRKVqUAgICAgICCKtTDyqJGH5Z/pId8kgcvAntP1eskIi0jJGCf8MjsiPO5w7V1YOUqXeUf1In9ESFuVzMFB6KIeOznt8QSeUpr1o8Y9X6GVa9W4RXB+0R+mi+Nysq9WPB5TN7y3jPq6t5PvQIO2L8aIuPP15/nYvt3/AJevn6yrPlRPn4PRu8S3bNylXb369fCVMC6lQzBUsUhUZ+0wOnhfEascnUnwbdn99T/1X1doVU9k4nTvvYnSP8RVtTqx4PE5feW8Z9XU7H+hweafEVXZveS9Vu/8tTwUzyieljomeJ669l6nmpN7/mf9Y9ZVhdCsEG+gtnFhjS9niCxtOlZbMMa5Kx+seqwTm7b9T3Kre1WWxjfvTzQNnGUSlZ1AICAgICAg89YQcuFEZ7THN7QQg5FP5dmF6yQjbQMnBY6fJiOaf5jQW/Cd2rfgnjMKvedeFbIJpXSqWYRD0UM8dnPb4gk8pZU60eMer9EqteqcIr1hbSY4cCDwsQyIkZF5IN+Yi9WNJ9mHls0TGS0T3z6puy9sYlFaITmiJBBMgJBzZkk5Jz3kmR04hYZMMX49ro2bbrYY6MxrVjbSvYdLisdCDg1jMmbhIkkzN2aWCnDSaRxa9v2iue8TXlEIELfDgZAqWMvVQKRwcWHElPIex8tOS4Ol3KLRrEwnHfoXrbumJ+ErrXFvJjJorSCRe94w5rc51nvXLTZf8lxtG9+GmGPOfspD3kkkm8kknWcV2Qo5nXWZdbskwtocEOBBycCJHEnAqrzTreXrthiY2ekT3KV5RPSx0TPE9dmy9TzUe9/zP+sesqwuhWCD21M3zrT7Ic/9LSR3yWrNOmOXZu+nT2mn6cfgmifZ+syrnrVvshDlCcb73nHQAPmSolKdUAgICAgICAg5PXVD4KkRIeYPJGw8ZvcVlCEdSYPCQnsGJblMH5mcYS1kBzffWeO3RtEuba8f/JimPP4Kk0rteebAiG2C+TmnQQewzTsTE6TEu6WftLR6YPNPk+U3Q3XPHV6w1iYXBek15vR4Npx5o9mePc31zUkClNyYzAZclwue3muzbMFFbzXkyy4KZY0tDm9oLER6PN8KcaHqHHaPzNGO0dgXXTPFuE8FLtGwZMfGvGPmrAK3q5m0qYYyzCyYswjFK1LUkeknzTOLne65g6851CawvlrTm37PsmXPPsRw7+x0OorJwKPJzhwkQes4XA/lbm24rhyZ7X/SHoNl3diw8Z4275+iYptMhwWF8R4Y0ZzuGk6gtVazM6Q7MmWmOvSvOkOWWrrRlJpHCQwQ0NDBO4mRJnLNirLDSaV0l5Xb9ornzdOnLTRDra4xBMVHDk179PEbrlJz/wCjtK5dptyqu9zYtbWyT4R9XuuE59209uBXGvnQKmgZECG045MztdxjvWKXtQEBAQEBAQEFJt9QZOZGGB4jtomW9on+kKYFUhvIIliLxqw/ZShWa7ofBxJtEmP47NAnyme6ZjZI51247dKrz21Yf+LJMdnY8TSs3MzCIbYMQtIc0lpBmCCQQdIIwQidOML7ZzyhvZJlLBe3DhGjjjnDB20SO1aL4NeNVng3javDJxjvdGoFPhR2B8F7XtOcHuOcHUVyzWYnSVtTJW8dKs6whbQ2PgUmbgODin12jE/nbg7bcda2Y81q+Dl2jYcebjynv+7m9d2fpFEPnWTbO6I29h6/VOo967KZK35KLaNlyYetHDv7P2eWg0SJGcGQmOe45hvOYDWVstaKxrLRTHbJbo0jWV+qCwbWyfSiHu/DbyBzji7uG1cmTaZnhVc7Nuqse1l4z3dn7rmxjWNkAGtAuAkAANwXNzW8RFY0hVq9ttDhzZR5RX4ZX8Mdfr9V2tdGPZptxtwVW1b1pT2cfGfl+/kodYVhFjuy4ry45p4DU0YBdtaRWNKqDNmyZrdK86/zseVZNQgyhsLiA0TJIAGkm4BJnSNUxE2mIjnKycEGNawG5olPS4mZdsJn1SVZe3StMvY7LgjDiinx8e17Koohixw08mczqaLyPrSsG90FYpEBAQEBAQEBB5a0oQjQnQ3esLjoIvaeoyQcqjQHQ3uY8Sc0kEaxoWSGik0NsZjoZu9Zjj6r5Sv1HA7AfVCzpfoy59pwRmpp29ipRYTmOLHgtc0yIOYrtideTz1qzWdJ5voRizBQbAVI91V1nGo78uC8sdnlg4aHA3EbVFqxaNJZ48t8c61nR0mztvoUWTKSBCf7X8N3X6nXdrXJkwTHGFvg3jS3DJwn5fsuLmte2RAc1wzyIIO8LQsZiJhooNXwoDcmDDawEzIaJTOvSpm0zzYY8VMcaUjRHV9aeBRbnOyomaG293vZmjb3rZjxWvyc+07bjwcJ4z3Q53XdpY9KMnHJh5obcPeOLuu7Uu3HhrTxef2nbcufhPCO6Pr3oppW5xPqIEBBN1TQ8gZbrnEcQey0+sdZGGozzhce0ZdfZhfbr2KY/rX8vv8AZ7pH62Xhcq7W6ytX5DOEcOM8XamZu3HsUSlOKAQEBAQEBAQEBBV7Y1GYg4eEOO0cYD1mjPrI3bApiRRAcdYUoaKwoLYwAccmILmPOEscl+lugjDWLltpk6Pg5Nq2SM0axzVqkQHw3Fj2lrhmPcQRcRrFy64mJjWFDelqTpaNJYhGLY0qRsBRDY0oJ2oLUUii3MdlQ/w3zLfdzt6rtSwvirZvwbXkw8I4x3T/ADgk61t5SIrcmGBBBxLSXPOxxAyeoT1rCuz1jjPFtzbyy3jSsaKxOd5xN5Ok6SumFZLMKWMsmlGLYpQIhMVfV2TJ8UX4tYd7/k3t0HlzZ/7arrYd2zbTJljh2R9/t8UhFM75kknHtvK41+lagqnhnhzh5tpv/McwGrSomUrsAoBAQEBAQEBAQEBAQU21VmZ5UaA28ib2Dvcwbx2KYkU35fLMpQypEJkRobEblAYSuc2fsHNsvBzhZ1vNeTTmwUyxpZBU6pXwwXM84wXzAk5o/O3EbRMa8y6aZYspc+x5MXHnHej2lbXI2AoM2lENgKlEswjFm0qWEswsmMswjGXrodEfE5IuGLjc0bT8sVja9axxbMOz5M06UjX0jzTVEojYV44z/aIw5gzbTfsXHkzzfhHJ6DZN20w+1bjb5R4R9WTYhPZn1zM+5aFkl6jqd0eRdMMBvd8m/VyTIu0CC1jQ1okAJALFLYgICAgICAgICAgICAgr9fWYZGJiQ5Mi/wDy/naDrHep1FHptDiQXZMRmS6d08DheDn2qUNMN18xMHMQZSxCDRTKvhRb3NLXH12AXnS5lwd1SOtba5bVcebYceTjHCf0+yIpNTRWTLQIjR6zJmXObyhtlLWuiuWtlTm2PLj5xrHfDwtK2OVsag2BSxlkCpYy9dEoj4nIbMZ3GQaNrjcotetebLFgyZZ0pGqVo9XQ2cs8IcZCbWD+p3d1rmvtEz1Vtg3TWOOWdf0jl8e1IcIbgMALgAA27QBIDDMueZmeMralK0jo1jSBk5yvnhpmdnYoZLLVNmieNHEhmZnPOObfsUapWljA0AAAAXAC4AKBkgICAgICAgICAgICAgICDRTKHDityYjQ4a82sHEHWEFQrSx72zdRzlD2HXOGw4Hrl1qdRW3QXMOS9rg4YgiRUoa2uwvvncdYQY0qjw4kuEYMo+s05D53YmRDp/mBK2VyWq5c2x4svHTSe+EbHqN4vhOEQaOQ/ZkkyPUSdS31zVnnwVeXd+WnGvGGuj1VFde5vBjS+bexsso9QWdstatOLZMuXlGnjwSkCroTMRwh0uEm9TAb+snDBaLZ7Ty4LLDuzHXjfjPye1zyZTN14AukBoAFwC081jWsVjSHwHT9FQlN1bZ+NFkSMhulwvwzNxPXJNRbKtqiFB5Im7O515/t1LFL3oCAgICAgICAgICAgICAgICAgIPNTaDDiiURgcNeI2EXhBV6zscbzAfP8rrj1OGPX2qdRWqXQokN0ojC04CYxzXHOpQ155DCedBi4zOk/wDSDOEwkgSJJ6ydgGKCfq2y8Z8i+UNuMje7qAw6ymqVoq+pIMGRa2bvadeerMOpYiSQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEGEaC14yXtDgcQQCO9BXqxsjDdMwXGG7QeM3vvCnUeKgWOdOcd4AGZmJ2kj5JqLPQquhQR5tgbpOJO0m8qB6kBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEH//2Q=="
+                  alt="" width="100%" />
+              </div>
+              <div class="col-md-10 company-details">
+                <button *ngIf="loggedInUser" class="experience-edit-button" mat-icon-button color="primary"
+                  aria-label="Example icon button with a menu icon" (click)="
+                    openDialog(
+                      'add-education',
+                      edu._id,
+                      edu.instname,
+                      edu.degree,
+                      edu.date,
+                      edu.address,
+                      'edit'
+                    )
+                  ">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <h2>{{ edu.instname }}</h2>
+                <h4>{{ edu.degree }}</h4>
+                <h5>{{ edu.date }}</h5>
+                <h5>{{ edu.address }}</h5>
+              </div>
+            </div>
+          </mat-card>
+          <mat-card *ngIf="!Details.education[0] && loggedInUser">
+            <p>Add your Education details hear!</p>
+          </mat-card>
+        </div>
+      </mat-card>
+
+      <mat-card>
+        <h1>Skills & Endorsements</h1>
+        <mat-card>
+          <h3>Something...</h3>
+        </mat-card>
+      </mat-card>
+    </div>
+    <div class="col-md-4">
+      <mat-card>
+        <p class="user-card-title">People You May Know</p>
+        <hr />
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+        <div *ngIf="!isLoading">
+          <mat-card *ngFor="let user of users" class="users-card">
+            <div class="row">
+              <div class="col-md-3">
+                <a [routerLink]="['/profile', user._id]">
+                  <img class="rounded-circle"
+                    src="https://student-portal-serve.herokuapp.com/users/{{ user._id }}/avatar" alt="" width="100%" />
+                </a>
+              </div>
+              <div class="col-md-6 users-details">
+                <a [routerLink]="['/profile', user._id]">
+                  <h3>{{ user.name }}</h3>
+                </a>
+                <p style="color: darkgrey">{{ user.status }}</p>
+              </div>
+              <div class="col-md-3 users-add">
+                <button class="add-person" mat-mini-fab color="primary"
+                  aria-label="Example icon button with a menu icon"
+                  (click)="followUser( loggedInUserId,user._id,'follow')">
+                  <mat-icon style="color: white">person_add</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </mat-card>
+
+      <mat-card>
+        <p style="text-align: center;">Recents posts</p>
+      </mat-card>
+      <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+      <div *ngIf="!isLoading">
+        <mat-card class="post-card" *ngFor="let post of posts">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image">
+              <a [routerLink]="['/profile', post.user._id]">
+                <img class="rounded-circle avatar"
+                  src="https://student-portal-serve.herokuapp.com/users/{{ post.user._id }}/avatar" alt=""
+                  width="100%" />
+              </a>
+            </div>
+            <mat-card-title><a [routerLink]="['/profile', post.user._id]">{{
+                post.user.name
+                }}</a></mat-card-title>
+            <mat-card-subtitle>{{ post.user.status }}</mat-card-subtitle>
+          </mat-card-header>
+          <!-- <img
+      *ngIf="post.body_photo"
+      mat-card-image
+      src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+      alt="Photo of a Shiba Inu"
+    /> -->
+          <mat-card-content>
+            <p>
+              {{ post.body }}
+            </p>
+          </mat-card-content>
+          <hr />
+          <!-- <mat-card-actions class="post-button">
+      <button mat-button><mat-icon>thumb_up</mat-icon> Like</button>
+      <button mat-button><mat-icon> comment</mat-icon> Comment</button>
+      <button mat-button><mat-icon>share</mat-icon>Share</button>
+    </mat-card-actions> -->
+        </mat-card>
+      </div>
+
+    </div>
+  </div>
+</div>

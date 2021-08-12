@@ -1,0 +1,105 @@
+::ng-deep .mat-progress-bar-fill::after {
+  background-color: #ff6265;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+  background: #e4e8eb;
+}
+
+::ng-deep .mat-progress-bar {
+  border-radius: 2px;
+}
+mat-progress-bar {
+  margin-top: 20px;
+}
+h1 {
+  color: #ff6265;
+}
+.peofile {
+  margin-top: 20px;
+}
+mat-card {
+  margin-top: 10px;
+  width: 100%;
+}
+mat-icon {
+  color: #ff6265;
+}
+.banner {
+  width: 100%;
+  height: 170px;
+  background-color: #ff6265;
+}
+.banner-image img {
+  position: relative;
+  top: 50px;
+}
+.banner-image h1 {
+  text-align: center;
+  font-size: xx-large;
+  font-family: inherit;
+}
+.info {
+  text-align: center;
+  margin-top: 6em;
+}
+.info-1 {
+  text-align: center;
+  margin-top: 2em;
+}
+.edit-button {
+  float: right;
+}
+.features-section p {
+  border: dotted thin;
+  padding: 10px;
+}
+.company-details h2,
+h4,
+h5 {
+  margin: 0;
+}
+.profile-edit-button {
+  float: right;
+  position: relative;
+  top: 63px;
+}
+.experience-edit-button {
+  float: right;
+  position: relative;
+  left: 14px;
+}
+input[type="file"] {
+  visibility: hidden;
+}
+.about-card default-card p {
+  border: dotted thin;
+  padding: 10px;
+}
+.experience-section p {
+  border: dotted thin;
+  padding: 10px;
+}
+.users-details h3,
+p {
+  margin: 0;
+}
+.user-card-title {
+  text-align: center;
+}
+hr {
+  /* background-color: #c2185b; */
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+.con-msg-btn {
+  margin-top: 1em;
+}
+.connect-btn button {
+  float: right;
+}
+.add-person {
+  background-color: #ff6265;
+}
